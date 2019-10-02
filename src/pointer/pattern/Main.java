@@ -3,10 +3,15 @@ package pointer.pattern;
 import pointer.pattern.adapter.Adaptee;
 import pointer.pattern.adapter.Adapter;
 import pointer.pattern.adapter.Target;
-import pointer.pattern.bridge.*;
+import pointer.pattern.bridge.Abstraction;
+import pointer.pattern.bridge.ConcreteImplementorA;
+import pointer.pattern.bridge.ConcreteImplementorB;
+import pointer.pattern.builder.GenericBuilder;
 import pointer.pattern.builder.Person;
 import pointer.pattern.builder.PersonBuilder;
-import pointer.pattern.composite.*;
+import pointer.pattern.builder.PersonModel;
+import pointer.pattern.composite.Component;
+import pointer.pattern.composite.Leaf;
 
 import java.util.stream.Stream;
 
@@ -28,17 +33,25 @@ public class Main {
         Component root = Component.getComponent("ROOT", branch1, branch2);
         root.operation();
 
-        Person person = new Person("Jack", "Doe", 122);
+        Person person = new Person("Jack", "Doe", 122, 12.7f);
 
         Person person1 = new PersonBuilder().with(p -> {
             p.firstName = "firstName";
             p.lastName = "lastName";
             p.height = 120;
+            p.weight = 14.2f;
         }).build();
 
         Person person2 = new PersonBuilder().build();
 
         Stream.of(person, person1, person2).forEach(System.out::println);
+
+        new GenericBuilder().with(p -> {
+            p.firstName = "firstName";
+            p.lastName = "lastName";
+            p.height = 120;
+            p.weight = 14.2f;
+        }).build();
     }
 
     private static void doOperation(Abstraction abstraction) {
