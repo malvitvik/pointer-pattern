@@ -2,13 +2,11 @@ package pointer.pattern.builder;
 
 import com.sun.istack.internal.NotNull;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public class PersonBuilder {
-    private final PersonModel personModel = new PersonModel();
+    private final PersonModel model = new PersonModel();
 
     private Consumer<PersonModel> builderConsumer;
 
@@ -20,8 +18,8 @@ public class PersonBuilder {
 
     public Person build() {
         if (Objects.nonNull(builderConsumer)) {
-            builderConsumer.accept(personModel);
+            builderConsumer.accept(model);
         }
-        return new Person(personModel.firstName, personModel.lastName, personModel.height, personModel.weight);
+        return new Person(model.firstName, model.lastName, model.height, model.weight);
     }
 }
