@@ -1,10 +1,16 @@
 package pointer.pattern;
 
 import pointer.pattern.bridge.Abstraction;
+import pointer.pattern.subscriber.BinObserver;
+import pointer.pattern.subscriber.HexObserver;
+import pointer.pattern.subscriber.OctObserver;
+import pointer.pattern.subscriber.Subject;
 import pointer.pattern.visitor.BoysHouse;
 import pointer.pattern.visitor.GirlsHouse;
 import pointer.pattern.visitor.Santa;
 import pointer.pattern.visitor.Village;
+
+import java.util.Scanner;
 
 public class Main {
 
@@ -53,6 +59,18 @@ public class Main {
         village.add(new BoysHouse());
 
         village.accept(new Santa());
+
+
+        Subject sub = new Subject();
+        // Client configures the number and type of Observers
+        new HexObserver(sub);
+        new OctObserver(sub);
+        new BinObserver(sub);
+        Scanner scan = new Scanner(System.in);
+        for (int i = 0; i < 5; i++) {
+            System.out.print("\nEnter a number: ");
+            sub.setState(scan.nextInt());
+        }
     }
 
     private static void doOperation(Abstraction abstraction) {
